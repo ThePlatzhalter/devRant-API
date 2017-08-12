@@ -4,15 +4,15 @@
 
 + Parameters
 
-    + app: `3` (number)
-    + type: `1` (number)
-    + email: `example@example.com` (string)
-    + username: `wildcard` (string)
-    + password: `nope :P` (string)
-    + guid: `1fee9f24-c00d-4a7e-8641-bd636725893e` (string, optional)
-    + plat: `3` (number, optional)
-    + sid: `1502483704000` (number, optional)
-    + seid: `1` (number, optional)
+    + app: `3` (number) - The ID of the app which is running the request. As far as tested, only the value 3 works here. Everything else results in the error "Invalid app id specified."
+    + type: `1` (number) - The account type. As far as tested, only the value 1 works here. Everything else results in an "invalid account type" error,
+    + email: `example@example.com` (string) - Email address of the to-be-registered user.
+    + username: `wildcard` (string) - Username
+    + password: `nope :P` (string) - Password
+    + guid: `1fee9f24-c00d-4a7e-8641-bd636725893e` (string, optional) - Randomly generated UUIDv1 which is reused in ever request in the opened session.
+    + plat: `3` (number, optional) - The ID of the platform which the app is running on.
+    + sid: `1502483704000` (number, optional) - The unix timestamp in milliseconds when the session started.
+    + seid: `1` (number, optional) - An event ID that is incremented each request. It starts with 1 and is stored and reused in the next session.
 
 ### Register [POST]
 Registers an account at devRant.io.
@@ -108,6 +108,105 @@ Registers an account at devRant.io.
                 "error_field": "email"
             }
 
+## User [/users/{user_id}{?app}]
+
++ Parameters
+
+    + user_id: `644182` (number) - The user id of the user whose information is requested
+    + app: `3` (number) - The ID of the app which is running the request. As far as tested, only the value 3 works here. Everything else results in the error "Invalid app id specified."
+
+### Get user information [GET]
+
++ Request Valid user id
+
+    + Body
+
+            {
+                "user_id": 644183,
+                "app": 3
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "profile": {
+                    "username": "wildcard",
+                    "score": 859,
+                    "about": "17 yo code enthusiast from Germany. Has been programming since he was 7.",
+                    "location": "Ingolstadt, Germany",
+                    "created_time": 1497221066,
+                    "skills": "JS, C, C++, C#, Go, Dart, Python, PHP, HTML, CSS",
+                    "github": "https://www.github.com/ThePlatzhalter",
+                    "website": "",
+                    "content": {
+                        "content": {
+                            "rants": [
+                                // See Body.rants in the /devrant/rants GET response
+                            ],
+                            "upvoted": [
+                                // See Body.rants in the /devrant/rants GET response
+                            ],
+                            "comments": [
+                                // See: TODO
+                            ],
+                            "favorites": [
+                                // TODO
+                            ]
+                        },
+                        "counts": {
+                            "rants": 20,
+                            "upvoted": 600,
+                            "comments": 116,
+                            "favorites": 1,
+                            "collabs": 0
+                        }
+                    },
+                    "avatar": {
+                        // See Body.rants.user_avatar in the /devrant/rants GET response
+                    },
+                    "dpp": 0 // TODO: Find out, what this does
+                }
+            }
+
++ Request Invalid user id
+
+    + Body
+
+            {
+                "user_id": 99999999,
+                "app": 3
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "success": false,
+                "error": "Invalid user specified in path."
+            }
+
++ Request Invalid app id
+
+    + Body
+
+            {
+                "user_id": 644183,
+                "app": 1
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "success": false,
+                "error": Invalid app id specified."
+            }
+
 ## Login [/users/auth-token{?app,username,password,guid,sid,seid,plat}]
 
 + Parameters
@@ -115,7 +214,7 @@ Registers an account at devRant.io.
     + app: `3` (number) - The ID of the app which is running the request. As far as tested, only the value 3 works here. Everything else results in the error "Invalid app id specified."
     + username: `wildcard` (string) - Username
     + password: `nope :P` (string) - Password
-    + guid: `49c4e417-0f96-4bf6-b923-1bf54005ee5d` (string, optional) - Randomly generated UUIDv1.
+    + guid: `49c4e417-0f96-4bf6-b923-1bf54005ee5d` (string, optional) - Randomly generated UUIDv1 which is reused in ever request in the opened session.
     + sid: `1504088781000` (number, optional) - The unix timestamp in milliseconds when the session started.
     + seid: `1` (number, optional) - An event ID that is incremented each request. It starts with 1 and is stored and reused in the next session.
     + plat: `3` (number, optional) - The ID of the platform which the app is running on.
