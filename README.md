@@ -2,7 +2,7 @@
 
 This aims to provide a full devRant API documentation written in the [API blueprint](https://apiblueprint.org/) format.
 
-You can see the documentation [here](htmlpreview.github.io/?https://raw.githubusercontent.com/ThePlatzhalter/devRant-API/master/dist/documentation.html). Eventually, when everything is ready for production, I will set up a GitHub page for this project, but for now, it is more convenient to just use `htmlpreview.github.io`.
+You can see the documentation [here](https://htmlpreview.github.io/?https://raw.githubusercontent.com/ThePlatzhalter/devRant-API/master/dist/documentation.html). Eventually, when everything is ready for production, I will set up a GitHub page for this project, but for now, it is more convenient to just use `htmlpreview.github.io`.
 
 # Project structure
 
