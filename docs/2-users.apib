@@ -1,0 +1,147 @@
+# Group Users
+
+## Users [/users{?app,type,email,username,password,guid,plat,sid,seid}]
+
++ Parameters
+
+    + app: `3` (number)
+    + type: `1` (number)
+    + email: `example@example.com` (string)
+    + username: `wildcard` (string)
+    + password: `nope :P` (string)
+    + guid: `1fee9f24-c00d-4a7e-8641-bd636725893e` (string, optional)
+    + plat: `3` (number, optional)
+    + sid: `1502483704000` (number, optional)
+    + seid: `1` (number, optional)
+
+### Register [POST]
+Registers an account at devRant.io.
+
++ Request Success
+
+    + Body
+
+            {
+                "app": 3,
+                "type": 1,
+                "email": "example@example.com",
+                "username": "username",
+                "password": "password"
+            }
+
++ Response 200 (application/json)
+    
+    + Body
+
+            {
+                "success": true,
+                "auth_token": {
+                    "id": 644182,
+                    "key": "mTknUFC$SHpZDB9QhGU8n4NEUFpz!EYERw48Sctj",
+                    "expire_time": 1505136041,
+                    "user_id": 771462
+                    }
+                }
+
++ Request Already existing username
+
+    + Body
+        
+            {
+                "app": 3,
+                "type": 1,
+                "email": "example@example.com",
+                "username": "already-existing-username",
+                "password": "password"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": false,
+                "error": "The username specified is already registered to an account.",
+                "error_field": "username"
+            }
+
++ Request Invalid account type
+
+    + Body
+
+            {
+                "app": 3,
+                "type": 2,
+                "email": "example@example.com",
+                "username": "already-existing-username",
+                "password": "password"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": false,
+                "error": "Invalid account type specified."
+            }
+
++ Request Invalid email address
+
+    + Body
+
+            {
+                "app": 3,
+                "type": 1,
+                "email": "example",
+                "username": "username",
+                "password": "password"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": false,
+                "error": "Please supply a valid email address.",
+                "error_field": "email"
+            }
+
+## Login [/users/auth-token{?app,username,password,guid,sid,seid,plat}]
+
++ Parameters
+
+    + app: `3` (number) - The ID of the app which is running the request. As far as tested, only the value 3 works here. Everything else results in the error "Invalid app id specified."
+    + username: `wildcard` (string) - Username
+    + password: `nope :P` (string) - Password
+    + guid: `49c4e417-0f96-4bf6-b923-1bf54005ee5d` (string, optional) - Randomly generated UUIDv1.
+    + sid: `1504088781000` (number, optional) - The unix timestamp in milliseconds when the session started.
+    + seid: `1` (number, optional) - An event ID that is incremented each request. It starts with 1 and is stored and reused in the next session.
+    + plat: `3` (number, optional) - The ID of the platform which the app is running on.
+
+### Authenticate [POST]
+Returns a authentication token as well as the expiration time of that token and the user id of the logged in user.
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": "true",
+                "auth_token": {
+                    "id": 644182,
+                    "key": "mTknUFC$SHpZDB9QhGU8n4NEUFpz!EYERw48Sctj",
+                    "expire_time": 1505134227,
+                    "user_id": 644182
+                }
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "success": false,
+                "error": "Invalid login credentials entered. Please try again."
+            }

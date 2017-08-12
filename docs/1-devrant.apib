@@ -1,0 +1,65 @@
+# Group devRant
+
+## Rants [/devrant/rants{?app,plat,token_id,token_key,user_id,guid,sid,seid,sort,skip}]
+
++ Parameters
+
+    + app: `3` (number) - The ID of the app which is running the request. As far as tested, only the value 3 works here. Everything else results in the error "Invalid app id specified."
+    + plat: `3` (number, optional) - The ID of the platform which the app is running on.
+    + token_id: `563363` (number, optional) - The token ID of the user currently logged in.
+    + token_key: `mTknUFC$SHpZDB9QhGU8n4NEUFpz!EYERw48Sctj` (string, optional) - The token string of the user currently logged in.
+    + user_id: `644182` (number, optional) - The ID of the user currently logged in.
+    + guid: `7509943a-7ef0-11e7-bb31-be2e44b06b34` (string, optional) - Current GUID.
+    + sid: `1502483704000` (number, optional) - The unix timestamp in milliseconds when the session started.
+    + seid: `342` (number, optional) - An event ID that is incremented each request. It starts with 1 and is stored and reused in the next session.
+    + sort: `algo` (string, optional) - "algo", "recent" or "top". Specifies the way returned rants will be sorted.
+    + skip: `10` (number, optional) - How many rants should be skipped (e.g. for pagination)
+
+### List rants [GET]
+Returns a JSON object with 20 rants. The `rants.user_avatar.i`-property defines the path of the user avatar image on the `https://avatars.devrant.io/`-host.
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "success": true,
+                "rants": [
+                    "id": "770127",
+                    "text": "Well fuck... I don't think I can just skip that step.",
+                    "score": 23,
+                    "created_time": 1502478695,
+                    "attached_image": {
+                        "url": "https://img.devrant.io/devrant/rant/r_770127_p4Gwt.jpg",
+                        "width": 799,
+                        "height": 449
+                    },
+                    "num_comments": 3,
+                    "tags": [
+                        "linux",
+                        "fail",
+                        "fuck",
+                        "kali"
+                    ],
+                    "vote_state": 0,
+                    "edited": false,
+                    "user_id": 630672,
+                    "user_username": "arces",
+                    "user_score": 53,
+                    "user_avatar": {
+                        "b": "69c9cd",
+                        "i": "v-17_c-3_b-6_g-m_9-1_1-3_16-4_3-6_8-1_7-1_5-1_12-3_6-1_2-14_4-1.jpg"
+                    }
+                ],
+                "settings": [ ],
+                "set": "598e4acaa8626"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "success": false,
+                "error": "Invalid app id specified."
+            }

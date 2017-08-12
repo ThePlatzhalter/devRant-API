@@ -1,0 +1,29 @@
+{
+  "name": "devrant-api",
+  "version": "0.0.1",
+  "description": "Unofficial devRant API documentation",
+  "scripts": {
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThePlatzhalter/devRant-API"
+  },
+  "keywords": [
+    "apidoc",
+    "devrant",
+    "api"
+  ],
+  "author": "Benjamin Laib",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/ThePlatzhalter/devRant-API/issues"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-aglio": "0.0.10",
+    "gulp-concat": "^2.6.1",
+    "pump": "^1.0.2",
+    "st": "^1.2.0"
+  }
+}
